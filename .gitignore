@@ -2,13 +2,13 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
-/[Ll]ibrary/
-/[Tt]emp/
-/[Oo]bj/
-/[Bb]uild/
-/[Bb]uilds/
-/[Ll]ogs/
-/[Uu]ser[Ss]ettings/
+2D-Spaceship Unity/[Ll]ibrary/
+2D-Spaceship Unity/[Tt]emp/
+2D-Spaceship Unity/[Oo]bj/
+2D-Spaceship Unity/[Bb]uild/
+2D-Spaceship Unity/[Bb]uilds/
+2D-Spaceship Unity/[Ll]ogs/
+2D-Spaceship Unity/[Uu]ser[Ss]ettings/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data

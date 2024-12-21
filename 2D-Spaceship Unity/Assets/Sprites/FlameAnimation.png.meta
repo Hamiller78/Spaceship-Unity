@@ -137,20 +137,20 @@ TextureImporter:
       name: FlameAnimation_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 84
-        width: 19
-        height: 12
+        x: 1
+        y: 85
+        width: 17
+        height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 0256b278379c77970800000000000000
-      internalID: 8752685898844038432
+      spriteID: 8c1ae4884f1c1d841ac1c96eb4386f1f
+      internalID: 275239650
       vertices: []
       indices: 
       edges: []
@@ -159,20 +159,20 @@ TextureImporter:
       name: FlameAnimation_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 72
-        width: 19
-        height: 12
+        x: 1
+        y: 73
+        width: 17
+        height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 8e75ad619b679b7a0800000000000000
-      internalID: -6360922461359679512
+      spriteID: 00198dc05e83e994fa254f922933808c
+      internalID: -2003662428
       vertices: []
       indices: 
       edges: []
@@ -181,20 +181,20 @@ TextureImporter:
       name: FlameAnimation_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 60
-        width: 19
-        height: 12
+        x: 1
+        y: 61
+        width: 17
+        height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 813f4c292f813c910800000000000000
-      internalID: 1856354901530309400
+      spriteID: 3833c00ebea58ea4bb7ec9308db9b006
+      internalID: -1330436381
       vertices: []
       indices: 
       edges: []
@@ -203,20 +203,20 @@ TextureImporter:
       name: FlameAnimation_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 48
-        width: 19
-        height: 12
+        x: 1
+        y: 49
+        width: 17
+        height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c4f1229d12b816220800000000000000
-      internalID: 2477414247523557196
+      spriteID: ccd5583937f231848ae19c9ef72b3888
+      internalID: 1007606320
       vertices: []
       indices: 
       edges: []
@@ -225,20 +225,20 @@ TextureImporter:
       name: FlameAnimation_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 36
-        width: 19
-        height: 12
+        x: 1
+        y: 37
+        width: 17
+        height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 7a973350d224b4420800000000000000
-      internalID: 2615256769746925991
+      spriteID: 4852533b97e63664e9ab566b02242391
+      internalID: -2077492053
       vertices: []
       indices: 
       edges: []
@@ -247,20 +247,20 @@ TextureImporter:
       name: FlameAnimation_5
       rect:
         serializedVersion: 2
-        x: 0
-        y: 24
-        width: 19
-        height: 12
+        x: 1
+        y: 25
+        width: 17
+        height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: d2d656724a59779e0800000000000000
-      internalID: -1623664608375640787
+      spriteID: 2833a1dddf6818346b0bdcd6bfc19d3c
+      internalID: -985533998
       vertices: []
       indices: 
       edges: []
@@ -269,20 +269,20 @@ TextureImporter:
       name: FlameAnimation_6
       rect:
         serializedVersion: 2
-        x: 0
-        y: 12
-        width: 19
-        height: 12
+        x: 1
+        y: 13
+        width: 17
+        height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 5f4e1abdd34088f50800000000000000
-      internalID: 6883756694160139509
+      spriteID: 9f5d8709073260741a30c26a0929a8cf
+      internalID: 2046562080
       vertices: []
       indices: 
       edges: []
@@ -291,20 +291,20 @@ TextureImporter:
       name: FlameAnimation_7
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 19
-        height: 12
+        x: 1
+        y: 1
+        width: 17
+        height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 5546d18dc8d3fd9e0800000000000000
-      internalID: -1594488067935345579
+      spriteID: 3bd31df686d9f204a96228a355867154
+      internalID: -1743227648
       vertices: []
       indices: 
       edges: []
@@ -313,7 +313,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: df065b62f12041645ae34ae91c9f582a
     internalID: 0
     vertices: []
     indices: 
@@ -322,7 +322,15 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      FlameAnimation_0: 275239650
+      FlameAnimation_1: -2003662428
+      FlameAnimation_2: -1330436381
+      FlameAnimation_3: 1007606320
+      FlameAnimation_4: -2077492053
+      FlameAnimation_5: -985533998
+      FlameAnimation_6: 2046562080
+      FlameAnimation_7: -1743227648
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

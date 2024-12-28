@@ -1,3 +1,4 @@
+using SpaceGame.Utilities;
 using UnityEngine;
 
 namespace SpaceGame.Sprites
@@ -21,9 +22,8 @@ namespace SpaceGame.Sprites
         void Update()
         {
             var delta = Time.deltaTime;
-            var steeringInput = Input.GetAxis("Horizontal");
-            var thrustInput = Input.GetAxis("Vertical");
 
+            var thrustInput = Input.GetAxis("Vertical");
             if (thrustInput != 0f)
             {
                 DeltaVelocity = MaxAcceleration * (float)delta;
@@ -34,6 +34,9 @@ namespace SpaceGame.Sprites
                 DeltaVelocity = 0f;
                 EngineFlameAnimation.SetActive(false);
             }
+
+            var steeringInput = Input.GetAxis("Horizontal");
+            DeltaRotation = new Angle(-steeringInput * TurnRateDegreesPerSecond * (float)delta);
 
             base.Update();
         }

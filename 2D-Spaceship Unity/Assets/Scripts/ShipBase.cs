@@ -9,7 +9,7 @@ namespace SpaceGame.Sprites
         public GameObject EngineFlameAnimation; // Reference to the flame GameObject
         public float MaxAcceleration { get; set; } = 1f;
 
-        public float TurnRateDegreesPerSecond { get; set; }
+        public float TurnRateDegreesPerSecond { get; set; } = 90f;
 
         protected float DeltaSpeed;
         protected Angle DeltaRotation = new();
@@ -32,13 +32,12 @@ namespace SpaceGame.Sprites
             var delta = Time.deltaTime;
 
             // Movement
-            // var newRotation = new Angle(RotationDegrees) + DeltaRotation;
-            // RotationDegrees = newRotation.InDegrees;
+            var currentRotation = transform.rotation.eulerAngles.z;
+            var newRotation = new Angle(currentRotation) + DeltaRotation;
+            transform.rotation = Quaternion.Euler(0, 0, newRotation.InDegrees);
 
-            // var vx = (float)(_velocity.x + Cos(transform.rotation) * DeltaVelocity);
-            // var vy = (float)(_velocity.y + Sin(transform.rotation) * DeltaVelocity);
-            var vx = (float)(_velocity.x + DeltaVelocity);
-            var vy = (float)(_velocity.y);
+            var vx = (float)(_velocity.x + Cos(newRotation.InRadians) * DeltaVelocity);
+            var vy = (float)(_velocity.y + Sin(newRotation.InRadians) * DeltaVelocity);
             _velocity = new Vector2(vx, vy);
 
             var newX = (float)(transform.localPosition.x + _velocity.x * delta);

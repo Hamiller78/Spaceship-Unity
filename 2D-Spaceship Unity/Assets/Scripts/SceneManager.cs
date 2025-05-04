@@ -19,7 +19,8 @@ namespace SpaceGame
 		// [Export]
 		// public PackedScene TurretScene { get; set; }
 
-		public GameObject TurretPrefab { get; set; }
+		[SerializeField]
+		private GameObject TurretPrefab;
 
 		// [Export]
 		// public PackedScene BossShipScene { get; set; }
@@ -97,18 +98,28 @@ namespace SpaceGame
 
 		private void SpawnTurrets()
 		{
+			if (TurretPrefab == null)
+			{
+				Debug.LogError("TurretPrefab is not assigned in the SceneManager!");
+				return;
+			}
+
+			// Get the screen bounds in world units
+			Vector3 screenBottomLeft = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
+			Vector3 screenTopRight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
+
 			for (int i = 0; i < TURRET_COUNT; i++)
 			{
-				var screenSizeX = Screen.width * 2;
-				var screenSizeY = Screen.height * 2;
+				// Generate a random position within the screen bounds
+				float randomX = UnityEngine.Random.Range(screenBottomLeft.x, screenTopRight.x);
+				float randomY = UnityEngine.Random.Range(screenBottomLeft.y, screenTopRight.y);
 
 				var turret = Instantiate(TurretPrefab);
-				turret.transform.position = new Vector3(
-					UnityEngine.Random.Range(0, screenSizeX),
-					UnityEngine.Random.Range(0, screenSizeY),
-					0
-				);
+				turret.transform.position = new Vector3(randomX, randomY, 0);
+
+				Debug.Log($"Spawned turret {i + 1} at position: {turret.transform.position}");
 			}
+
 			_turretsLeft += TURRET_COUNT;
 		}
 

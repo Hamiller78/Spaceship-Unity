@@ -24,7 +24,7 @@ namespace SpaceGame.Sprites
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         new void Start()
         {
-            RotationDegrees = StartRotationDegrees;
+            transform.rotation = Quaternion.Euler(0, 0, StartRotationDegrees);
             base.Start();
         }
 
@@ -41,7 +41,7 @@ namespace SpaceGame.Sprites
 
             if (targetDistance < FireRange)
             {
-                FirePrimary();
+                //                FirePrimary();
             }
 
             base.Update();
@@ -49,26 +49,26 @@ namespace SpaceGame.Sprites
 
         public void OnTargetPositionUpdated(Vector2 position, Vector2 velocity)
         {
-            _targetPosition = position;
-            _angleToTarget = NavigationManager.GetGlobalAngleToTarget(
-                transform.position,
-                _targetPosition,
-                transform.eulerAngles.z - RotationDegrees
-            );
+            // _targetPosition = position;
+            // _angleToTarget = NavigationManager.GetGlobalAngleToTarget(
+            //     transform.position,
+            //     _targetPosition,
+            //     transform.eulerAngles.z - RotationDegrees
+            // );
         }
 
         private void TurnTurret(float delta)
         {
-            var newRotation = NavigationManager.GetNewRotation(
-                RotationDegrees,
-                _angleToTarget.InDegrees,
-                TurnRateDegreesPerSecond,
-                MinRotationDegrees,
-                MaxRotationDegrees,
-                delta
-            );
-            DeltaRotation = new Angle(0f); // TODO: Remove this when it is no longer used in base class
-            RotationDegrees = newRotation;
+            // var newRotation = NavigationManager.GetNewRotation(
+            //     RotationDegrees,
+            //     _angleToTarget.InDegrees,
+            //     TurnRateDegreesPerSecond,
+            //     MinRotationDegrees,
+            //     MaxRotationDegrees,
+            //     delta
+            // );
+            // DeltaRotation = new Angle(0f); // TODO: Remove this when it is no longer used in base class
+            // RotationDegrees = newRotation;
         }
     }
 }

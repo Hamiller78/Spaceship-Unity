@@ -8,8 +8,8 @@ namespace SpaceGame.Utilities
         public enum TurnDirection
         {
             None = 0,
-            Clockwise = 1,
-            CounterClockwise = -1
+            Clockwise = -1,
+            CounterClockwise = 1
         }
 
         public static Angle GetGlobalAngleToTarget(Vector2 source, Vector2 target, float deltaGlobalRotation)
@@ -151,13 +151,13 @@ namespace SpaceGame.Utilities
 
         private static float GetClockwiseAbsDifference(Angle angle, Angle otherAngle)
         {
-            var diffAngle = otherAngle - angle;
+            var diffAngle = angle - otherAngle;
             return diffAngle.InDegrees;
         }
 
         private static float GetCounterClockwiseAbsDifference(Angle angle, Angle otherAngle)
         {
-            var diffAngle = angle - otherAngle;
+            var diffAngle = otherAngle - angle;
             return diffAngle.InDegrees;
         }
     }

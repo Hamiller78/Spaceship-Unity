@@ -34,7 +34,7 @@ namespace SpaceGame
 		// [Signal]
 		// public delegate void PrintDebugMessageEventHandler(string debugMessage);
 
-		private const int TURRET_COUNT = 10;
+		private const int TURRET_COUNT = 1;
 
 		private int _score = 0;
 		private int _turretsLeft = 0;

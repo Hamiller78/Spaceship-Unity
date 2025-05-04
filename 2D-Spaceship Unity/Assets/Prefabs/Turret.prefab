@@ -166,3 +166,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EngineFlameAnimation: {fileID: 0}
+  _viewRange: 100

@@ -10,7 +10,8 @@ namespace SpaceGame.Sprites
 
         public float FireRange { get; set; }
 
-        public float ViewRange { get; set; }
+        [SerializeField]
+        private float _viewRange;
 
         public float StartRotationDegrees { get; set; }
 
@@ -34,7 +35,7 @@ namespace SpaceGame.Sprites
             DeltaRotation = new Angle(0f);
 
             var targetDistance = Vector2.Distance(_targetPosition, transform.position);
-            if (targetDistance < ViewRange)
+            if (targetDistance < _viewRange)
             {
                 TurnTurret(Time.deltaTime);
             }
@@ -50,26 +51,29 @@ namespace SpaceGame.Sprites
         public void OnTargetPositionUpdated(Vector2 position, Vector2 velocity)
         {
             Debug.Log($"Turret: Target position updated to {position} with velocity {velocity}");
-            // _targetPosition = position;
-            // _angleToTarget = NavigationManager.GetGlobalAngleToTarget(
-            //     transform.position,
-            //     _targetPosition,
-            //     transform.eulerAngles.z - RotationDegrees
-            // );
+            _targetPosition = position;
+            _angleToTarget = NavigationManager.GetGlobalAngleToTarget(
+                transform.position,
+                _targetPosition,
+                transform.eulerAngles.z
+            );
+            Debug.Log($"Turret: Angle to target is {_angleToTarget.InDegrees} degrees");
         }
 
         private void TurnTurret(float delta)
         {
-            // var newRotation = NavigationManager.GetNewRotation(
-            //     RotationDegrees,
-            //     _angleToTarget.InDegrees,
-            //     TurnRateDegreesPerSecond,
-            //     MinRotationDegrees,
-            //     MaxRotationDegrees,
-            //     delta
-            // );
-            // DeltaRotation = new Angle(0f); // TODO: Remove this when it is no longer used in base class
-            // RotationDegrees = newRotation;
+            Debug.Log($"Old rotation: {transform.eulerAngles.z} degrees, Angle to target: {_angleToTarget.InDegrees} degrees");
+            var newRotation = NavigationManager.GetNewRotation(
+                transform.eulerAngles.z,
+                _angleToTarget.InDegrees,
+                TurnRateDegreesPerSecond,
+                MinRotationDegrees,
+                MaxRotationDegrees,
+                delta
+            );
+            Debug.Log($"New rotation: {newRotation} degrees");
+            DeltaRotation = new Angle(0f); // TODO: Remove this when it is no longer used in base class
+            transform.rotation = Quaternion.Euler(0, 0, newRotation);
         }
     }
 }

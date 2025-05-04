@@ -22,6 +22,9 @@ namespace SpaceGame
 		[SerializeField]
 		private GameObject TurretPrefab;
 
+		[SerializeField]
+		private GameObject target;
+
 		// [Export]
 		// public PackedScene BossShipScene { get; set; }
 
@@ -104,9 +107,22 @@ namespace SpaceGame
 				return;
 			}
 
+			if (target == null)
+			{
+				Debug.LogError("Target GameObject is not assigned in the SceneManager!");
+				return;
+			}
+
 			// Get the screen bounds in world units
 			Vector3 screenBottomLeft = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
 			Vector3 screenTopRight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
+
+			var targetScript = target.GetComponent<ShipBase>();
+			if (targetScript == null)
+			{
+				Debug.LogError("The target GameObject does not have a ShipBase component!");
+				return;
+			}
 
 			for (int i = 0; i < TURRET_COUNT; i++)
 			{
@@ -114,8 +130,19 @@ namespace SpaceGame
 				float randomX = UnityEngine.Random.Range(screenBottomLeft.x, screenTopRight.x);
 				float randomY = UnityEngine.Random.Range(screenBottomLeft.y, screenTopRight.y);
 
-				var turret = Instantiate(TurretPrefab);
-				turret.transform.position = new Vector3(randomX, randomY, 0);
+				var turretObject = Instantiate(TurretPrefab);
+				var turret = turretObject.GetComponent<Turret>();
+
+				if (turret == null)
+				{
+					Debug.LogError("The instantiated object does not have a Turret component!");
+					continue;
+				}
+
+				Debug.Log($"Subscribing turret {i + 1} to PositionUpdated event.");
+
+				turretObject.transform.position = new Vector3(randomX, randomY, 0);
+				targetScript.PositionUpdated += turret.OnTargetPositionUpdated;
 
 				Debug.Log($"Spawned turret {i + 1} at position: {turret.transform.position}");
 			}

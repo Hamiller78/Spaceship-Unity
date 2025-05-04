@@ -49,6 +49,7 @@ namespace SpaceGame.Sprites
 
         public void OnTargetPositionUpdated(Vector2 position, Vector2 velocity)
         {
+            Debug.Log($"Turret: Target position updated to {position} with velocity {velocity}");
             // _targetPosition = position;
             // _angleToTarget = NavigationManager.GetGlobalAngleToTarget(
             //     transform.position,

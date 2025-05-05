@@ -13,11 +13,11 @@ namespace SpaceGame.Sprites
         [SerializeField]
         private float _viewRange;
 
-        public float StartRotationDegrees { get; set; }
+        public float StartRotationDegrees { get; set; } = 0f;
 
-        public float MinRotationDegrees { get; set; }
+        public float MinRotationDegrees { get; set; } = 0f;
 
-        public float MaxRotationDegrees { get; set; }
+        public float MaxRotationDegrees { get; set; } = 360f;
 
         private Vector2 _targetPosition;
         private Angle _angleToTarget = new();
@@ -52,10 +52,9 @@ namespace SpaceGame.Sprites
         {
             Debug.Log($"Turret: Target position updated to {position} with velocity {velocity}");
             _targetPosition = position;
-            _angleToTarget = NavigationManager.GetGlobalAngleToTarget(
+            _angleToTarget = NavigationManager.GetAngleToTarget(
                 transform.position,
-                _targetPosition,
-                transform.eulerAngles.z
+                _targetPosition
             );
             Debug.Log($"Turret: Angle to target is {_angleToTarget.InDegrees} degrees");
         }

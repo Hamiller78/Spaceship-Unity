@@ -17,13 +17,9 @@ namespace SpaceGame.Utilities
             {
                 _angle = value;
                 _angle = _angle % 360f;
-                if (_angle < 0f)
+                while (_angle < 0f)
                 {
                     _angle += 360f;
-                }
-                else if (_angle >= 360f)
-                {
-                    _angle -= 360f;
                 }
             }
         }
@@ -34,6 +30,21 @@ namespace SpaceGame.Utilities
             set => InDegrees = value * 180f / (float)Math.PI;
         }
 
+        public float InMin180Plus180
+        {
+            get
+            {
+                if (_angle > 180f)
+                {
+                    return _angle - 360f;
+                }
+                else
+                {
+                    return _angle;
+                }
+            }
+        }
+
         private float _angle = 0f;
 
         public Angle() { }
@@ -41,11 +52,6 @@ namespace SpaceGame.Utilities
         public Angle(float angle)
         {
             InDegrees = angle;
-        }
-
-        public static Angle FromMathCoordSystem(float angle)
-        {
-            return new Angle(-angle);
         }
 
         public static Angle operator +(Angle a, Angle b)
@@ -58,69 +64,29 @@ namespace SpaceGame.Utilities
             return new Angle(a.InDegrees - b.InDegrees);
         }
 
-        public int GetTurnDirection(Angle targetAngle, Angle minAngle, Angle maxAngle)
-        {
-            var angleToMin = GetCounterClockwiseDifference(minAngle);
-            var angleToMax = GetClockwiseDifference(maxAngle);
-            var clockwiseDifference = GetClockwiseDifference(targetAngle);
-            var counterClockwiseDifference = GetCounterClockwiseDifference(targetAngle);
-
-            if (clockwiseDifference <= counterClockwiseDifference)
-            {
-                if (clockwiseDifference <= angleToMax)
-                {
-                    return 1;
-                }
-                else if (counterClockwiseDifference <= angleToMin)
-                {
-                    return -1;
-                }
-            }
-
-            if (counterClockwiseDifference < clockwiseDifference)
-            {
-                if (counterClockwiseDifference <= angleToMin)
-                {
-                    return -1;
-                }
-                else if (clockwiseDifference <= angleToMax)
-                {
-                    return 1;
-                }
-            }
-
-            return 0;
-        }
-
-        public bool IsBetween(Angle minAngle, Angle maxAngle)
-        {
-            var angleMinToThis = GetCounterClockwiseDifference(minAngle);
-            var angleThisToMax = GetClockwiseDifference(maxAngle);
-
-            return angleMinToThis + angleThisToMax <= 360f;
-        }
-
         public float GetClockwiseDifference(Angle otherAngle)
         {
-            if (InDegrees < otherAngle.InDegrees)
+            var deltaAngle = (otherAngle - this).InMin180Plus180;
+            if (deltaAngle <= 0f)
             {
-                return Math.Abs(otherAngle.InDegrees - InDegrees);
+                return -deltaAngle;
             }
             else
             {
-                return Math.Abs(otherAngle.InDegrees - InDegrees + 360f);
+                return 360f - deltaAngle;
             }
         }
 
         public float GetCounterClockwiseDifference(Angle otherAngle)
         {
-            if (InDegrees < otherAngle.InDegrees)
+            var deltaAngle = (otherAngle - this).InMin180Plus180;
+            if (deltaAngle >= 0f)
             {
-                return Math.Abs(otherAngle.InDegrees - InDegrees - 360f);
+                return deltaAngle;
             }
             else
             {
-                return Math.Abs(otherAngle.InDegrees - InDegrees);
+                return 360f + deltaAngle;
             }
         }
     }

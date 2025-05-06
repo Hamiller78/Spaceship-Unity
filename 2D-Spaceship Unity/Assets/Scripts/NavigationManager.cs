@@ -46,10 +46,18 @@ namespace SpaceGame.Utilities
             float maxRotation,
             double delta)
         {
-            // var currentAngle = new Angle(currentRotationDegrees);
-            // var targetAngle = new Angle(targetRotationDegrees);
+            var currentAngle = new Angle(currentRotationDegrees);
+            var targetAngle = new Angle(targetRotationDegrees);
 
-            // var maxDeltaDegrees = rotationSpeed * (float)delta;
+            var diffAngle = targetAngle - currentAngle;
+            var direction = Math.Sign(diffAngle.InMin180Plus180);
+
+            var maxDeltaDegrees = rotationSpeed * (float)delta;
+
+            var deltaAngle = new Angle(direction * maxDeltaDegrees);
+            var newAngle = currentAngle + deltaAngle;
+
+            return newAngle.InDegrees;
 
             // // Calculates shortest allowed path to target rotation
             // var turnDirection = GetTurnDirection(currentAngle, targetAngle, minRotation, maxRotation);
@@ -75,7 +83,6 @@ namespace SpaceGame.Utilities
 
             // var targetAngle = new Angle(targetRotationDegrees);
 
-            return targetRotationDegrees;
 
             // return currentRotationDegrees + (maxDeltaDegrees * (int)turnDirection);
         }

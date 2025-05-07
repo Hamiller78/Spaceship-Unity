@@ -9,6 +9,12 @@ namespace SpaceGame.Sprites
         public delegate void PositionUpdatedHandler(Vector2 position, Vector2 velocity);
         public event PositionUpdatedHandler PositionUpdated;
 
+        [SerializeField]
+        private GameObject _laserShotPrefab;
+
+        [SerializeField]
+        private float _rechargeTime = 0.5f;
+
         public GameObject EngineFlameAnimation; // Reference to the flame GameObject
         public float MaxAcceleration { get; set; } = 1f;
 
@@ -20,7 +26,7 @@ namespace SpaceGame.Sprites
         private Vector3 _velocity = new Vector3(0, 0, 0);
 
         protected bool IsEngineRunning = false;
-        private float _rechargeTimeRemaining = 0f;
+        private float _rechargeTimeRemaining = -1f;
 
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -82,10 +88,40 @@ namespace SpaceGame.Sprites
                 }
             }
 
-            // if (_rechargeTimeRemaining > 0f)
-            // {
-            //     _rechargeTimeRemaining -= (float)Time.deltaTime;
-            // }
+            if (_rechargeTimeRemaining > 0f)
+            {
+                _rechargeTimeRemaining -= (float)Time.deltaTime;
+            }
+        }
+
+        protected void FirePrimary()
+        {
+            if (_rechargeTimeRemaining > 0f)
+            {
+                return;
+            }
+
+            Debug.Log("Firing primary weapon!");
+            var newShotObject = Instantiate(_laserShotPrefab);
+            var newShot = newShotObject.GetComponent<LaserShot>();
+
+            float rotationInRadians = transform.rotation.eulerAngles.z * Mathf.Deg2Rad;
+            newShot.transform.position
+                = transform.position
+                    + new Vector3(
+                        0.15f * (float)Cos(rotationInRadians),
+                        0.15f * (float)Sin(rotationInRadians),
+                        0f);
+            newShot.transform.rotation = transform.rotation;
+
+            Vector2 velocity = (Vector2)_velocity
+            + new Vector2(
+                Mathf.Cos(rotationInRadians) * newShot.Speed,
+                Mathf.Sin(rotationInRadians) * newShot.Speed
+            );
+            newShot.Initialize(velocity);
+
+            _rechargeTimeRemaining = _rechargeTime;
         }
     }
 }

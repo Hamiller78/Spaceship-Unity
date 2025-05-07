@@ -50,18 +50,15 @@ namespace SpaceGame.Sprites
 
         public void OnTargetPositionUpdated(Vector2 position, Vector2 velocity)
         {
-            Debug.Log($"Turret: Target position updated to {position} with velocity {velocity}");
             _targetPosition = position;
             _angleToTarget = NavigationManager.GetAngleToTarget(
                 transform.position,
                 _targetPosition
             );
-            Debug.Log($"Turret: Angle to target is {_angleToTarget.InDegrees} degrees");
         }
 
         private void TurnTurret(float delta)
         {
-            Debug.Log($"Old rotation: {transform.eulerAngles.z} degrees, Angle to target: {_angleToTarget.InDegrees} degrees");
             var newRotation = NavigationManager.GetNewRotation(
                 transform.eulerAngles.z,
                 _angleToTarget.InDegrees,
@@ -70,7 +67,6 @@ namespace SpaceGame.Sprites
                 MaxRotationDegrees,
                 delta
             );
-            Debug.Log($"New rotation: {newRotation} degrees");
             DeltaRotation = new Angle(0f); // TODO: Remove this when it is no longer used in base class
             transform.rotation = Quaternion.Euler(0, 0, newRotation);
         }

@@ -38,6 +38,13 @@ namespace SpaceGame.Sprites
             var steeringInput = Input.GetAxis("Horizontal");
             DeltaRotation = new Angle(-steeringInput * TurnRateDegreesPerSecond * (float)delta);
 
+            var fireInput = Input.GetButton("Fire1");
+            if (fireInput)
+            {
+                Debug.Log("PlayerShip: Fire button pressed");
+                FirePrimary();
+            }
+
             base.Update();
         }
     }

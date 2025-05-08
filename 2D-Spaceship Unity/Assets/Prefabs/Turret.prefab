@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3325930527869787772}
   m_Layer: 0
   m_Name: Turret
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,5 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd56b638548755c49b158ae5aef47bb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _laserShotPrefab: {fileID: 0}
+  _rechargeTime: 0.5
   EngineFlameAnimation: {fileID: 0}
   _viewRange: 100

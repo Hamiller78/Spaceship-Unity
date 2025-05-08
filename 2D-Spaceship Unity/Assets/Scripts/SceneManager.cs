@@ -20,7 +20,7 @@ namespace SpaceGame
 		// public PackedScene TurretScene { get; set; }
 
 		[SerializeField]
-		private GameObject TurretPrefab;
+		private GameObject _turretPrefab;
 
 		[SerializeField]
 		private GameObject target;
@@ -101,7 +101,7 @@ namespace SpaceGame
 
 		private void SpawnTurrets()
 		{
-			if (TurretPrefab == null)
+			if (_turretPrefab == null)
 			{
 				Debug.LogError("TurretPrefab is not assigned in the SceneManager!");
 				return;
@@ -130,7 +130,7 @@ namespace SpaceGame
 				float randomX = UnityEngine.Random.Range(screenBottomLeft.x, screenTopRight.x);
 				float randomY = UnityEngine.Random.Range(screenBottomLeft.y, screenTopRight.y);
 
-				var turretObject = Instantiate(TurretPrefab);
+				var turretObject = Instantiate(_turretPrefab);
 				var turret = turretObject.GetComponent<Turret>();
 
 				if (turret == null)

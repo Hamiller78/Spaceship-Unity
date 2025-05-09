@@ -133,16 +133,14 @@ namespace SpaceGame
 				var turretObject = Instantiate(_turretPrefab);
 				var turret = turretObject.GetComponent<Turret>();
 
-				if (turret == null)
+				if (turret != null)
 				{
-					Debug.LogError("The instantiated object does not have a Turret component!");
-					continue;
+					turret.Initialize(targetScript);
 				}
 
 				Debug.Log($"Subscribing turret {i + 1} to PositionUpdated event.");
 
 				turretObject.transform.position = new Vector3(randomX, randomY, 0);
-				targetScript.PositionUpdated += turret.OnTargetPositionUpdated;
 
 				Debug.Log($"Spawned turret {i + 1} at position: {turret.transform.position}");
 			}

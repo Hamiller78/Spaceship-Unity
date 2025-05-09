@@ -19,6 +19,7 @@ namespace SpaceGame.Sprites
 
         public float MaxRotationDegrees { get; set; } = 360f;
 
+        private ShipBase _targetShip;
         private Vector2 _targetPosition;
         private Angle _angleToTarget = new();
 
@@ -48,6 +49,17 @@ namespace SpaceGame.Sprites
             base.Update();
         }
 
+        public void Initialize(ShipBase targetShip)
+        {
+            _targetShip = targetShip;
+
+            // Subscribe to the PositionUpdated event
+            if (_targetShip != null)
+            {
+                _targetShip.PositionUpdated += OnTargetPositionUpdated;
+            }
+        }
+
         public void OnTargetPositionUpdated(Vector2 position, Vector2 velocity)
         {
             _targetPosition = position;
@@ -55,6 +67,15 @@ namespace SpaceGame.Sprites
                 transform.position,
                 _targetPosition
             );
+        }
+
+        public void OnDestroy()
+        {
+            // Unsubscribe from the PositionUpdated event
+            if (_targetShip != null)
+            {
+                _targetShip.PositionUpdated -= OnTargetPositionUpdated;
+            }
         }
 
         private void TurnTurret(float delta)

@@ -23,7 +23,7 @@ namespace SpaceGame.Sprites
         protected float DeltaSpeed;
         protected Angle DeltaRotation = new();
         protected float DeltaVelocity;
-        private Vector3 _velocity = new Vector3(0, 0, 0);
+        protected Vector3 _velocity = new Vector3(0, 0, 0);
 
         protected bool IsEngineRunning = false;
         private float _rechargeTimeRemaining = -1f;

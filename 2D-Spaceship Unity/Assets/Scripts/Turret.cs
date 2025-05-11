@@ -13,12 +13,14 @@ namespace SpaceGame.Sprites
         [SerializeField]
         private float _viewRange;
 
+        [SerializeField]
+        private GameObject _explosionPrefab;
+
         public float StartRotationDegrees { get; set; } = 0f;
 
         public float MinRotationDegrees { get; set; } = 0f;
 
         public float MaxRotationDegrees { get; set; } = 360f;
-
         private ShipBase _targetShip;
         private Vector2 _targetPosition;
         private Angle _angleToTarget = new();
@@ -76,6 +78,8 @@ namespace SpaceGame.Sprites
             {
                 _targetShip.PositionUpdated -= OnTargetPositionUpdated;
             }
+
+            var explosionObject = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
         }
 
         private void TurnTurret(float delta)

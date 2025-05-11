@@ -384,7 +384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad485ef3c15f9ab4ba077662a0615239, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TurretPrefab: {fileID: 6867836882696762590, guid: 737d2d8c4ab14f640b2a1578d0499e8c, type: 3}
+  _turretPrefab: {fileID: 6867836882696762590, guid: 737d2d8c4ab14f640b2a1578d0499e8c, type: 3}
   target: {fileID: 1477139711}
 --- !u!1 &1477139711
 GameObject:
@@ -418,6 +418,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c686cdfdfd3396143a36d550e2ce468b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _laserShotPrefab: {fileID: 3228945588969397014, guid: 2c0fb35ea64708349ace7ca7ea6ed758, type: 3}
+  _rechargeTime: 0.5
   EngineFlameAnimation: {fileID: 1664808692}
 --- !u!60 &1477139713
 PolygonCollider2D:

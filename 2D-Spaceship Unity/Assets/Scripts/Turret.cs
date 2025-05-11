@@ -8,13 +8,11 @@ namespace SpaceGame.Sprites
     {
         public delegate void TurretDestroyedEventHandler(Turret turret);
 
-        public float FireRange { get; set; }
+        [SerializeField]
+        private float _fireRange;
 
         [SerializeField]
         private float _viewRange;
-
-        [SerializeField]
-        private GameObject _explosionPrefab;
 
         public float StartRotationDegrees { get; set; } = 0f;
 
@@ -43,9 +41,9 @@ namespace SpaceGame.Sprites
                 TurnTurret(Time.deltaTime);
             }
 
-            if (targetDistance < FireRange)
+            if (targetDistance < _fireRange)
             {
-                //                FirePrimary();
+                FirePrimary();
             }
 
             base.Update();
@@ -71,7 +69,7 @@ namespace SpaceGame.Sprites
             );
         }
 
-        public void OnDestroy()
+        public override void OnDestroy()
         {
             // Unsubscribe from the PositionUpdated event
             if (_targetShip != null)
@@ -79,7 +77,7 @@ namespace SpaceGame.Sprites
                 _targetShip.PositionUpdated -= OnTargetPositionUpdated;
             }
 
-            var explosionObject = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
+            base.OnDestroy();
         }
 
         private void TurnTurret(float delta)

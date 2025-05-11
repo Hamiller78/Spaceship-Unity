@@ -42,12 +42,8 @@ public partial class LaserShot : MonoBehaviour
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		// Check if the laser hit an enemy
-		if (collision.CompareTag("Enemy"))
+		if (collision.CompareTag("Enemy") || collision.CompareTag("Player"))
 		{
-			Debug.Log("Laser hit an enemy!");
-
-			// Destroy the enemy (or call a method on the enemy script)
-			// TODO: Implement enemy destruction logic
 			Destroy(collision.gameObject);
 
 			// Destroy the laser

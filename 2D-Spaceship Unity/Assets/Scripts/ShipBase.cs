@@ -13,6 +13,9 @@ namespace SpaceGame.Sprites
         private GameObject _laserShotPrefab;
 
         [SerializeField]
+        private GameObject _explosionPrefab;
+
+        [SerializeField]
         private float _rechargeTime = 0.5f;
 
         public GameObject EngineFlameAnimation; // Reference to the flame GameObject
@@ -92,6 +95,11 @@ namespace SpaceGame.Sprites
             {
                 _rechargeTimeRemaining -= (float)Time.deltaTime;
             }
+        }
+
+        public virtual void OnDestroy()
+        {
+            var explosionObject = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
         }
 
         protected void FirePrimary()

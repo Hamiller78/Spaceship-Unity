@@ -169,5 +169,5 @@ MonoBehaviour:
   _explosionPrefab: {fileID: 8912502542588493202, guid: bbd7bb9ec3654f748ae7d6b61ce257d0, type: 3}
   _rechargeTime: 0.5
   EngineFlameAnimation: {fileID: 6969103081341223456, guid: f4c673d4c30d0b243be028e5ce05299c, type: 3}
-  _fireRange: 4
+  _fireRange: 2
   _viewRange: 8

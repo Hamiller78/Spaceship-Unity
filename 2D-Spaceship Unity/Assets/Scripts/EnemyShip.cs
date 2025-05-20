@@ -13,16 +13,10 @@ namespace SpaceGame.Sprites
         }
 
         [SerializeField]
-        public float Acceleration { get; set; } = 200f;
+        private float _acceleration;
 
         [SerializeField]
-        public float RadsPerSecond { get; set; } = 2f * (float)Math.PI * 0.4f;
-
-        [SerializeField]
-        public GameObject LaserShotPrefab { get; set; }
-
-        [SerializeField]
-        public float RechargeTime { get; set; } = 0.5f;
+        private float _radsPerSecond;
 
         [SerializeField]
         private ShipBase _targetShip;
@@ -102,7 +96,7 @@ namespace SpaceGame.Sprites
                 _targetPosition - new Vector2(transform.position.x, transform.position.y);
 
             var desiredDeltaV =
-                deltaPos.normalized * (float)Math.Sqrt(Acceleration * deltaPos.magnitude);
+                deltaPos.normalized * (float)Math.Sqrt(_acceleration * deltaPos.magnitude);
             var deltaVDelta = new Vector3(desiredDeltaV.x, desiredDeltaV.y) - _velocity;
 
             // Unity translation of Godot velocity update
@@ -125,7 +119,7 @@ namespace SpaceGame.Sprites
                 0f,
                 0f,
                 transform.rotation.eulerAngles.z
-                    + Mathf.Sign(rotationDelta) * Mathf.Rad2Deg * RadsPerSecond * (float)delta
+                    + Mathf.Sign(rotationDelta) * Mathf.Rad2Deg * _radsPerSecond * (float)delta
             );
         }
 
@@ -154,7 +148,7 @@ namespace SpaceGame.Sprites
             {
                 rotationDelta -= (float)(2d * Math.PI);
             }
-            var rotationStep = RadsPerSecond * (float)delta;
+            var rotationStep = _radsPerSecond * (float)delta;
 
             if (Math.Abs(rotationDelta) <= rotationStep)
             {
@@ -181,9 +175,11 @@ namespace SpaceGame.Sprites
 
             var shipRotation = transform.rotation.eulerAngles.z;
             var vx =
-                _velocity.x + Mathf.Cos(shipRotation * Mathf.Deg2Rad) * Acceleration * (float)delta;
+                _velocity.x
+                + Mathf.Cos(shipRotation * Mathf.Deg2Rad) * _acceleration * (float)delta;
             var vy =
-                _velocity.y + Mathf.Sin(shipRotation * Mathf.Deg2Rad) * Acceleration * (float)delta;
+                _velocity.y
+                + Mathf.Sin(shipRotation * Mathf.Deg2Rad) * _acceleration * (float)delta;
             _velocity = new Vector2(vx, vy);
         }
 

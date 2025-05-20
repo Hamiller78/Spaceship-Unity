@@ -33,7 +33,7 @@ namespace SpaceGame.Sprites
 
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
-        protected void Start()
+        protected virtual void Start()
         {
 
         }
@@ -45,7 +45,7 @@ namespace SpaceGame.Sprites
         }
 
         // Update is called once per frame
-        protected void Update()
+        protected virtual void Update()
         {
             var delta = Time.deltaTime;
 

@@ -8,7 +8,7 @@ namespace SpaceGame.Sprites
         private Animator _engineFlameAnimationController;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
-        new void Start()
+        private new void Start()
         {
             if (EngineFlameAnimation != null)
             {
@@ -19,7 +19,7 @@ namespace SpaceGame.Sprites
         }
 
         // Update is called once per frame
-        new void Update()
+        private new void Update()
         {
             var delta = Time.deltaTime;
 

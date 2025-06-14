@@ -16,7 +16,7 @@ namespace SpaceGame.Sprites
         private float _acceleration;
 
         [SerializeField]
-        private float _radsPerSecond;
+        private float _turnRateInDegsPerSecond;
 
         [SerializeField]
         private ShipBase _targetShip;
@@ -58,6 +58,9 @@ namespace SpaceGame.Sprites
                 _maneuverMode = ManeuverMode.Approach;
             }
 
+            Debug.Log($"Target distance: {targetDistance}");
+            Debug.Log($"Maneuver mode: {_maneuverMode}");
+
             switch (_maneuverMode)
             {
                 case ManeuverMode.Approach:
@@ -70,20 +73,17 @@ namespace SpaceGame.Sprites
                     break;
             }
 
-            var newX = (float)(transform.position.x + _velocity.x * delta);
-            var newY = (float)(transform.position.y + _velocity.y * delta);
-
-            var newPosition = new Vector2(newX, newY);
-            transform.position = newPosition;
-
             base.Update();
         }
 
         private void PerformAttack(double delta)
         {
+            Debug.Log($"Performing attack with delta: {delta}");
+
             TurnToTarget(delta);
 
-            if (Math.Abs(GetDeltaAngleToTarget()) < Math.PI / 4d)
+            Debug.Log($"Angle to target: {GetDeltaAngleToTarget()}");
+            if (Math.Abs(GetDeltaAngleToTarget()) < 30f)
             {
                 FirePrimary();
                 StopEngine();
@@ -100,12 +100,11 @@ namespace SpaceGame.Sprites
             var deltaVDelta = new Vector3(desiredDeltaV.x, desiredDeltaV.y) - _velocity;
 
             // Unity translation of Godot velocity update
-            var shipRotation = transform.eulerAngles.z * Mathf.Deg2Rad;
+            var shipRotation = transform.eulerAngles.z;
             var rotationDelta =
                 Vector2.SignedAngle(Vector2.right, new Vector2(deltaVDelta.x, deltaVDelta.y))
-                    * Mathf.Deg2Rad
                 - shipRotation;
-            if (Math.Abs(rotationDelta) < Math.PI / 6f)
+            if (Math.Abs(rotationDelta) < 60f)
             {
                 RunEngine(delta);
             }
@@ -119,7 +118,7 @@ namespace SpaceGame.Sprites
                 0f,
                 0f,
                 transform.rotation.eulerAngles.z
-                    + Mathf.Sign(rotationDelta) * Mathf.Rad2Deg * _radsPerSecond * (float)delta
+                    + Mathf.Sign(rotationDelta) * _turnRateInDegsPerSecond * (float)delta
             );
         }
 
@@ -132,41 +131,42 @@ namespace SpaceGame.Sprites
 
             // With this Unity equivalent:
             var direction = _targetPosition - (Vector2)transform.position;
-            _targetRotation = Mathf.Atan2(direction.y, direction.x);
+            _targetRotation = Mathf.Atan2(direction.y, direction.x) + Mathf.Rad2Deg;
         }
 
         private void TurnToTarget(double delta)
         {
             // Godot: var rotationDelta = _targetRotation - (Rotation - (float)Math.PI / 2f);
             // Unity equivalent:
-            var rotationDelta = _targetRotation - (transform.eulerAngles.z * Mathf.Deg2Rad);
-            if (rotationDelta < -Math.PI)
+            var rotationDelta = _targetRotation - (transform.eulerAngles.z);
+            if (rotationDelta < 180f)
             {
-                rotationDelta += (float)(2d * Math.PI);
+                rotationDelta += 360f;
             }
-            else if (rotationDelta > Math.PI)
+            else if (rotationDelta > 180f)
             {
-                rotationDelta -= (float)(2d * Math.PI);
+                rotationDelta -= 360f;
             }
-            var rotationStep = _radsPerSecond * (float)delta;
+            var rotationStep = _turnRateInDegsPerSecond * (float)delta;
 
             if (Math.Abs(rotationDelta) <= rotationStep)
             {
                 // Unity: set the rotation directly using Quaternion.Euler
-                transform.rotation = Quaternion.Euler(0f, 0f, _targetRotation * Mathf.Rad2Deg);
+                transform.rotation = Quaternion.Euler(0f, 0f, _targetRotation);
             }
             else
             {
                 // Unity: incrementally rotate towards the target
                 float newZ =
-                    transform.rotation.eulerAngles.z
-                    + Mathf.Sign(rotationDelta) * rotationStep * Mathf.Rad2Deg;
+                    transform.rotation.eulerAngles.z + Mathf.Sign(rotationDelta) * rotationStep;
                 transform.rotation = Quaternion.Euler(0f, 0f, newZ);
             }
         }
 
         private void RunEngine(double delta)
         {
+            Debug.Log($"Running engine with delta: {delta}");
+
             if (!_isEngineRunning)
             {
                 _isEngineRunning = true;
@@ -180,7 +180,7 @@ namespace SpaceGame.Sprites
             var vy =
                 _velocity.y
                 + Mathf.Sin(shipRotation * Mathf.Deg2Rad) * _acceleration * (float)delta;
-            _velocity = new Vector2(vx, vy);
+            _velocity = new Vector3(vx, vy, 0);
         }
 
         private void StopEngine()
@@ -194,12 +194,12 @@ namespace SpaceGame.Sprites
 
         private float GetDeltaAngleToTarget()
         {
-            return _targetRotation - transform.rotation.eulerAngles.z + (float)Math.PI / 2f;
+            return _targetRotation - transform.rotation.eulerAngles.z + 90f;
         }
 
         private float GetShipRotation()
         {
-            return transform.rotation.eulerAngles.z - (float)Math.PI / 2f;
+            return transform.rotation.eulerAngles.z - 90f;
         }
     }
 }

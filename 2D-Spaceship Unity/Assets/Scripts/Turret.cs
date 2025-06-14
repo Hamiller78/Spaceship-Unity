@@ -82,7 +82,7 @@ namespace SpaceGame.Sprites
 
         private void TurnTurret(float delta)
         {
-            var newRotation = NavigationManager.GetNewRotation(
+            var newRotation = NavigationManager.GetNewTurretRotation(
                 transform.eulerAngles.z,
                 _angleToTarget.InDegrees,
                 TurnRateDegreesPerSecond,

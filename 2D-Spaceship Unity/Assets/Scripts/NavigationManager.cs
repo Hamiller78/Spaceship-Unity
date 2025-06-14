@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 namespace SpaceGame.Utilities
 {
@@ -9,7 +10,7 @@ namespace SpaceGame.Utilities
         {
             None = 0,
             Clockwise = -1,
-            CounterClockwise = 1
+            CounterClockwise = 1,
         }
 
         // public static Angle GetGlobalAngleToTarget(Vector2 source, Vector2 target, float deltaGlobalRotation)
@@ -38,13 +39,27 @@ namespace SpaceGame.Utilities
             return new Angle() { InRadians = angleInRads };
         }
 
-        public static float GetNewRotation(
+        public static Angle GetInterceptCourse(
+            Vector2 relativeTargetPosition,
+            Vector2 relativeTargetVelocity,
+            float acceleration
+        )
+        {
+            var interceptAngle = GetAngleToTarget(Vector2.zero, relativeTargetPosition);
+
+            return interceptAngle;
+        }
+
+        // This function calculates the new turret rotation taking into account
+        // restrictions for the turret rotation and the rotation speed.
+        public static float GetNewTurretRotation(
             float currentRotationDegrees,
             float targetRotationDegrees,
             float rotationSpeed,
             float minRotation,
             float maxRotation,
-            double delta)
+            double delta
+        )
         {
             var currentAngle = new Angle(currentRotationDegrees);
             var targetAngle = new Angle(targetRotationDegrees);
@@ -87,11 +102,16 @@ namespace SpaceGame.Utilities
             // return currentRotationDegrees + (maxDeltaDegrees * (int)turnDirection);
         }
 
-        private static TurnDirection GetTurnDirection(Angle angle, Angle targetAngle, float minRotation, float maxRoation)
+        private static TurnDirection GetTurnDirection(
+            Angle angle,
+            Angle targetAngle,
+            float minRotation,
+            float maxRoation
+        )
         {
             var shortPathDirection = GetShortestPathDirection(angle, targetAngle);
-            var longPathDirection
-                = shortPathDirection == TurnDirection.Clockwise
+            var longPathDirection =
+                shortPathDirection == TurnDirection.Clockwise
                     ? TurnDirection.CounterClockwise
                     : TurnDirection.Clockwise;
 
@@ -114,7 +134,8 @@ namespace SpaceGame.Utilities
             Angle targetAngle,
             TurnDirection turnDirection,
             float minAngle,
-            float maxAngle)
+            float maxAngle
+        )
         {
             if (minAngle == 0f && maxAngle == 360f)
             {

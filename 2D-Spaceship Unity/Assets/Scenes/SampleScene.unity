@@ -487,7 +487,7 @@ MonoBehaviour:
   _rechargeTime: 0.5
   EngineFlameAnimation: {fileID: 359616513}
   _acceleration: 200
-  _radsPerSecond: 5
+  _turnRateInDegsPerSecond: 120
   _targetShip: {fileID: 1477139712}
 --- !u!1 &619394800
 GameObject:
